@@ -1,0 +1,52 @@
+@import url("https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap");
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer utilities {
+  .custom-collapse .ant-collapse-arrow {
+    @apply bg-[#0a9753] p-1 rounded-full text-white;
+  }
+
+  .custom-collapse-black .ant-collapse-arrow {
+    @apply bg-black flex flex-wrap items-center p-1 rounded-full text-white;
+  }
+
+  .custom-collapse-black .ant-collapse-arrow svg {
+    @apply text-white;
+  }
+
+  .custom-collapse-black .ant-collapse-header {
+    align-items: center !important;
+  }
+
+  .custom-collapse .ant-collapse-arrow svg {
+    @apply text-white;
+  }
+
+  .custom-divider.ant-divider-horizontal.ant-divider-with-text {
+    align-items: baseline !important;
+  }
+
+  .p-custom {
+    @apply flex text-[20px] w-full items-center gap-2 dark:text-white font-roboto;
+  }
+
+  .section-custom {
+    @apply flex flex-col items-center gap-2 dark:text-white;
+  }
+
+  .about-custom {
+    @apply font-roboto pl-5 border-l-[3px] ml-[8px] border-[#0a9753] dark:text-white;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+}
+
+@theme {
+  --font-cal: "Cal Sans", "sans-serif";
+  --font-roboto: "Roboto Flex", "sans-serif";
+}
