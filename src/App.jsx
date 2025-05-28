@@ -30,6 +30,7 @@ function App() {
 
     const script2 = document.createElement("script");
     script2.innerHTML = `
+    src="https://www.googletagmanager.com/gtag/js?id=${import.meta.env.VITE_GOOGLE_TAG_ID}"
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
