@@ -54,11 +54,6 @@ function App() {
     script3.async = true;
     document.head.appendChild(script3);
 
-    const metaVerifier = document.createElement("meta");
-    metaVerifier.name = "google-site-verification";
-    metaVerifier.content = import.meta.env.VITE_GOOGLE_SITE_VERIFICATION;
-    document.head.appendChild(metaVerifier);
-
     return () => {
       const existingScript1 = document.getElementById(scriptId);
       if (existingScript1) {
