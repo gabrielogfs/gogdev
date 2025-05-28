@@ -13,7 +13,6 @@ import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
 function App() {
-
   useEffect(() => {
     const googleTagId = import.meta.env.VITE_GOOGLE_TAG_ID;
     const scriptId = "recaptcha-v3-script";
@@ -48,9 +47,17 @@ function App() {
     const script3 = document.createElement("script");
     script3.id = script3Id;
     script3.src = "https://app.usercentrics.eu/browser-ui/latest/loader.js";
-    script3.setAttribute("data-settings-id", import.meta.env.VITE_USER_CENTRICS_ID);
+    script3.setAttribute(
+      "data-settings-id",
+      import.meta.env.VITE_USER_CENTRICS_ID
+    );
     script3.async = true;
     document.head.appendChild(script3);
+
+    const metaVerifier = document.createElement("meta");
+    metaVerifier.name = "google-site-verification";
+    metaVerifier.content = import.meta.env.VITE_GOOGLE_SITE_VERIFICATION;
+    document.head.appendChild(metaVerifier);
 
     return () => {
       const existingScript1 = document.getElementById(scriptId);
@@ -65,7 +72,9 @@ function App() {
       if (existingGtagScript) {
         existingGtagScript.remove();
       }
-      const inlineScript = document.querySelector("script#google-tag-script + script");
+      const inlineScript = document.querySelector(
+        "script#google-tag-script + script"
+      );
       if (inlineScript) {
         inlineScript.remove();
       }
