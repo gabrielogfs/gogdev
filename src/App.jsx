@@ -1,7 +1,7 @@
 import "./App.css";
 import { ThemeProvider } from "./contexts/themeContext";
 import { ToastContainer } from "react-toastify";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import "./contexts/i18n";
 import Nav from "./components/Nav";
@@ -30,13 +30,27 @@ function App() {
 
     if (document.getElementById(scriptId)) return;
 
-    const script = document.createElement("script");
-    script.id = scriptId;
-    script.src = `https://www.google.com/recaptcha/api.js?render=${
+    const script1 = document.createElement("script");
+    script1.id = scriptId;
+    script1.src = `https://www.google.com/recaptcha/api.js?render=${
       import.meta.env.VITE_RECAPTCHA_SITE_KEY
     }`;
-    script.async = true;
-    document.body.appendChild(script);
+    script1.async = true;
+    document.body.appendChild(script1);
+
+    const script2 = document.createElement("script");
+    script2.innerHTML = `
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '${import.meta.env.VITE_GOOGLE_TAG_ID}')
+      `;
+    document.body.appendChild(script2);
+
+    return () => {
+      document.head.removeChild(script1);
+      document.head.removeChild(script2);
+    }
   }, [consentGiven]);
 
   return (
