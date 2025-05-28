@@ -41,7 +41,7 @@ function App() {
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', '${tagId}');
+    gtag('config', '${googleTagId}');
     `;
     document.head.appendChild(inlineScript);
 
