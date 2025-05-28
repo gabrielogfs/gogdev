@@ -11,22 +11,12 @@ import Portfolio from "./components/Portfolio";
 import Technologies from "./components/Technologies";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
-import CookieConsent from "./components/CookieConsent";
 
 function App() {
-  const [consentGiven, setConsentGiven] = useState(false);
 
   useEffect(() => {
-    const consent = localStorage.getItem("cookieConsent");
-    if (consent) {
-      setConsentGiven(true);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!consentGiven) return;
-
     const scriptId = "recaptcha-v3-script";
+    const script3Id = "usercentrics-cmp";
 
     if (document.getElementById(scriptId)) return;
 
@@ -47,11 +37,24 @@ function App() {
       `;
     document.body.appendChild(script2);
 
+    const script3 = document.createElement("script");
+    script3.id = script3Id;
+    script3.src = "https://app.usercentrics.eu/browser-ui/latest/loader.js";
+    script3.setAttribute("data-settings-id", import.meta.env.VITE_USER_CENTRICS_ID);
+    script3.async = true;
+    document.head.appendChild(script3);
+
     return () => {
-      document.head.removeChild(script1);
-      document.head.removeChild(script2);
-    }
-  }, [consentGiven]);
+      const existingScript1 = document.getElementById(scriptId);
+      if (existingScript1) {
+        existingScript1.remove();
+      }
+      const existingScript2 = document.getElementById(script3Id);
+      if (existingScript2) {
+        existingScript2.remove();
+      }
+    };
+  }, []);
 
   return (
     <ThemeProvider>
@@ -66,7 +69,6 @@ function App() {
           <ToastContainer />
           <Footer />
         </main>
-        {!consentGiven && <CookieConsent onAccept={() => setConsentGiven(true)} />}
       </div>
     </ThemeProvider>
   );
